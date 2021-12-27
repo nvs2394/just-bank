@@ -1,0 +1,4 @@
+GET http://localhost:8000/customers
+
+###
+GET http://localhost:8000/customers/11111
