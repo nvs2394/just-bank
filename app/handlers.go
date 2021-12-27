@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/nvs2394/just-bank/service"
 )
 
 type Customer struct {
@@ -14,11 +15,12 @@ type Customer struct {
 	Zipcode string `json:"zip_code"`
 }
 
-func getCustomers(rw http.ResponseWriter, r *http.Request) {
-	customers := []Customer{
-		{Name: "Bao", City: "Hanoi", Zipcode: "110075"},
-		{Name: "Sonny", City: "Hanoi", Zipcode: "110076"},
-	}
+type CustomerHandlers struct {
+	service service.CustomerService
+}
+
+func (customerHandler *CustomerHandlers) getCustomers(rw http.ResponseWriter, r *http.Request) {
+	customers, _ := customerHandler.service.GetAllCustomer()
 	rw.Header().Add("Content-type", "application/json")
 
 	json.NewEncoder(rw).Encode(customers)
