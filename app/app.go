@@ -18,7 +18,7 @@ func Start() {
 
 	router.HandleFunc("/customers", customerHandler.getCustomers).Methods(http.MethodGet)
 	router.HandleFunc("/customers", createCustomer).Methods(http.MethodPost)
-	router.HandleFunc("/customers/{customer_id}:[0-9]+", getCustomer).Methods(http.MethodGet)
+	router.HandleFunc("/customers/{customer_id}", customerHandler.getCustomer).Methods(http.MethodGet)
 
 	log.Fatal(http.ListenAndServe("localhost:8000", router))
 
