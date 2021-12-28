@@ -34,7 +34,7 @@ func (customerHandler *CustomerHandlers) getCustomer(rw http.ResponseWriter, r *
 
 	if err != nil {
 		rw.WriteHeader(http.StatusNotFound)
-		rw.Header().Add("Content-type", "application/json")
+		json.NewEncoder(rw).Encode(err)
 	} else {
 		rw.Header().Add("Content-type", "application/json")
 		json.NewEncoder(rw).Encode(customer)

@@ -3,6 +3,10 @@ GET http://localhost:8000/customers
 ###
 GET http://localhost:8000/customers/2000
 
+### Resource not found
+
+GET http://localhost:8000/customers/A-1000
+
 ###
 
 POST http://localhost:8000/customers
