@@ -1,4 +1,13 @@
+
+### All
 GET http://localhost:8000/customers
+
+
+### Active
+GET http://localhost:8000/customers?status=active
+
+### Inactive
+GET http://localhost:8000/customers?status=inactive
 
 ###
 GET http://localhost:8000/customers/2000

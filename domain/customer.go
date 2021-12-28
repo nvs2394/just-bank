@@ -3,15 +3,15 @@ package domain
 import "github.com/nvs2394/just-bank/errs"
 
 type Customer struct {
-	Id          string
-	Name        string
-	City        string
-	Zipcode     string
-	DateOfBirth string
-	Status      string
+	Id          string `json:"id"`
+	Name        string `json:"name"`
+	City        string `json:"city"`
+	Zipcode     string `json:"zip_code"`
+	DateOfBirth string `json:"date_of_birth"`
+	Status      string `json:"status"`
 }
 
 type CustomerRepository interface {
-	FindAll() ([]Customer, error)
+	FindAll(status string) ([]Customer, *errs.AppError)
 	FindById(string) (*Customer, *errs.AppError)
 }
