@@ -9,12 +9,6 @@ import (
 	"github.com/nvs2394/just-bank/service"
 )
 
-type Customer struct {
-	Name    string `json:"full_name"`
-	City    string `json:"city"`
-	Zipcode string `json:"zip_code"`
-}
-
 type CustomerHandlers struct {
 	service service.CustomerService
 }
@@ -33,16 +27,21 @@ func (customerHandler *CustomerHandlers) getCustomer(rw http.ResponseWriter, r *
 	customer, err := customerHandler.service.GetCustomer(customerId)
 
 	if err != nil {
-		rw.WriteHeader(http.StatusNotFound)
-		json.NewEncoder(rw).Encode(err)
+		writeResponse(rw, err.Code, err.AsMessage())
 	} else {
-		rw.Header().Add("Content-type", "application/json")
-		json.NewEncoder(rw).Encode(customer)
+		writeResponse(rw, http.StatusOK, customer)
 	}
 
 }
 
 func createCustomer(rw http.ResponseWriter, r *http.Request) {
-
 	fmt.Println("Calling to create customer")
+}
+
+func writeResponse(rw http.ResponseWriter, code int, data interface{}) {
+	rw.Header().Add("Content-type", "application/json")
+	rw.WriteHeader(code)
+	if err := json.NewEncoder(rw).Encode(data); err != nil {
+		panic(err)
+	}
 }
