@@ -8,6 +8,10 @@ Learn go with real example
 
 - Hexagonal Architect
 
+
+Database Schema
+
+![EPR Just Bank](./just-bank-db.png)
 ### How to run local
 
 
