@@ -1,6 +1,9 @@
 package domain
 
-import "github.com/nvs2394/just-bank/errs"
+import (
+	"github.com/nvs2394/just-bank/dto"
+	"github.com/nvs2394/just-bank/errs"
+)
 
 type Customer struct {
 	Id          string `db:"customer_id"`
@@ -9,6 +12,27 @@ type Customer struct {
 	Zipcode     string
 	DateOfBirth string `db:"date_of_birth"`
 	Status      string
+}
+
+func (customer Customer) StatusAsText() string {
+
+	statusAsText := "active"
+	if customer.Status == "0" {
+		statusAsText = "inactive"
+	}
+	return statusAsText
+}
+
+func (customer Customer) ToDto() dto.CustomerResponse {
+
+	return dto.CustomerResponse{
+		Id:          customer.Id,
+		Name:        customer.Name,
+		City:        customer.City,
+		Zipcode:     customer.Zipcode,
+		DateOfBirth: customer.DateOfBirth,
+		Status:      customer.StatusAsText(),
+	}
 }
 
 type CustomerRepository interface {

@@ -2,12 +2,13 @@ package service
 
 import (
 	"github.com/nvs2394/just-bank/domain"
+	"github.com/nvs2394/just-bank/dto"
 	"github.com/nvs2394/just-bank/errs"
 )
 
 type CustomerService interface {
 	GetAllCustomer(status string) ([]domain.Customer, *errs.AppError)
-	GetCustomer(string) (*domain.Customer, *errs.AppError)
+	GetCustomer(string) (*dto.CustomerResponse, *errs.AppError)
 }
 
 type DefaultCustomerService struct {
@@ -25,8 +26,16 @@ func (s DefaultCustomerService) GetAllCustomer(status string) ([]domain.Customer
 	return s.repo.FindAll(status)
 }
 
-func (s DefaultCustomerService) GetCustomer(id string) (*domain.Customer, *errs.AppError) {
-	return s.repo.FindById(id)
+func (s DefaultCustomerService) GetCustomer(id string) (*dto.CustomerResponse, *errs.AppError) {
+	customer, err := s.repo.FindById(id)
+
+	if err != nil {
+		return nil, err
+	}
+
+	response := customer.ToDto()
+
+	return &response, nil
 }
 
 func NewCustomerService(repository domain.CustomerRepository) DefaultCustomerService {
