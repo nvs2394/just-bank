@@ -3,12 +3,12 @@ package domain
 import "github.com/nvs2394/just-bank/errs"
 
 type Customer struct {
-	Id          string `json:"id"`
-	Name        string `json:"name"`
-	City        string `json:"city"`
-	Zipcode     string `json:"zipCode"`
-	DateOfBirth string `json:"dateOfBirth"`
-	Status      string `json:"status"`
+	Id          string `db:"customer_id"`
+	Name        string
+	City        string
+	Zipcode     string
+	DateOfBirth string `db:"date_of_birth"`
+	Status      string
 }
 
 type CustomerRepository interface {
