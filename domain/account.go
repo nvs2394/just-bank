@@ -1,6 +1,7 @@
 package domain
 
 import (
+	"github.com/nvs2394/just-bank/dto"
 	"github.com/nvs2394/just-bank/errs"
 )
 
@@ -9,8 +10,12 @@ type Account struct {
 	CustomerId  string `db:"customer_id"`
 	OpeningDate string `db:"opening_date"`
 	AccountType string `db:"account_Type"`
-	Amount      string
+	Amount      float64
 	Status      string
+}
+
+func (account Account) ToNewAccountResponseDto() dto.NewAccountResponse {
+	return dto.NewAccountResponse{AccountId: account.Id}
 }
 
 type AccountRepository interface {

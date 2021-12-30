@@ -19,3 +19,31 @@ GET http://localhost:8000/customers/A-1000
 ###
 
 POST http://localhost:8000/customers
+
+###
+POST http://localhost:8000/customers/2000/accounts  HTTP/1.1
+content-type: application/json
+
+{
+    "account_type": "saving",
+    "amount": 60000.00
+}
+
+### 
+POST http://localhost:8000/customers/2000/accounts  HTTP/1.1
+content-type: application/json
+
+{
+    "account_type": "not_saving",
+    "amount": 60000.00
+}
+
+###
+
+POST http://localhost:8000/customers/2000/accounts  HTTP/1.1
+content-type: application/json
+
+{
+    "account_type": "saving",
+    "amount": 1000.00
+}
