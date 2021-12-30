@@ -5,8 +5,10 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/gorilla/mux"
+	"github.com/jmoiron/sqlx"
 	"github.com/nvs2394/just-bank/domain"
 	"github.com/nvs2394/just-bank/service"
 )
@@ -17,13 +19,35 @@ func sanityCheck() {
 	}
 }
 
+func getDBClient() *sqlx.DB {
+	dbUser := os.Getenv("DB_USER")
+	dbPassword := os.Getenv("DB_PASSWORD")
+	dbName := os.Getenv("DB_NAME")
+	connectionString := dbUser + ":" + dbPassword + "@/" + dbName
+
+	client, err := sqlx.Open("mysql", connectionString)
+
+	if err != nil {
+		panic(err)
+	}
+
+	client.SetConnMaxLifetime(time.Minute * 3)
+	client.SetMaxOpenConns(10)
+	client.SetMaxIdleConns(10)
+	return client
+}
+
 func Start() {
 
 	sanityCheck()
 	router := mux.NewRouter()
+	dbClient := getDBClient()
+
+	customerRepositoryDB := domain.NewCustomerRepositoryDb(dbClient)
+	// accountRepositoryDB := domain.NewCustomerRepositoryDb(dbClient)
 
 	customerHandler := CustomerHandlers{
-		service: service.NewCustomerService(domain.NewCustomerRepositoryDb()),
+		service: service.NewCustomerService(customerRepositoryDB),
 	}
 
 	router.HandleFunc("/customers", customerHandler.getCustomers).Methods(http.MethodGet)
