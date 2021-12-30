@@ -13,10 +13,10 @@ type AccountRepositoryDb struct {
 	client *sqlx.DB
 }
 
-func (d AccountRepositoryDb) Save(account Account) (*Account, *errs.AppError) {
+func (accountRepoDB AccountRepositoryDb) Save(account Account) (*Account, *errs.AppError) {
 	newAccountSql := "INSERT INTO accounts (customer_id, opening_date, account_type, amount) values(?,?,?,?)"
 
-	result, err := d.client.Exec(newAccountSql, account.CustomerId, account.OpeningDate, account.AccountType, account.Amount)
+	result, err := accountRepoDB.client.Exec(newAccountSql, account.CustomerId, account.OpeningDate, account.AccountType, account.Amount)
 
 	if err != nil {
 		logger.Error("Error while creating new account " + err.Error())
