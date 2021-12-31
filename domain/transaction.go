@@ -7,14 +7,14 @@ import (
 
 type Transaction struct {
 	Id              string `db:"transaction_id"`
-	AccountId       string `db:"account_id"`
+	AccountId       int    `db:"account_id"`
 	TransactionType string `db:"transaction_type"`
 	TransactionDate string `db:"transaction_date"`
 	Amount          float64
 }
 
-func (account Account) ToTransactionResponseDto() dto.NewAccountResponse {
-	return dto.NewAccountResponse{AccountId: account.Id}
+func (transaction Transaction) ToTransactionResponseDto() dto.NewTransactionResponse {
+	return dto.NewTransactionResponse{TransactionId: transaction.Id}
 }
 
 type TransactionRepository interface {

@@ -3,6 +3,7 @@ package domain
 import (
 	"strconv"
 
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
 	"github.com/nvs2394/just-bank/errs"
 	"github.com/nvs2394/just-bank/logger"
@@ -13,9 +14,9 @@ type TransactionRepositoryDb struct {
 }
 
 func (transactionRepoDB TransactionRepositoryDb) Save(transaction Transaction) (*Transaction, *errs.AppError) {
-	newTransactionSql := "INSERT INTO transactions (transaction_id, account_id, transaction_type, transaction_date, amount) values (?,?,?,?,?)"
+	newTransactionSql := "INSERT INTO transactions (account_id, transaction_type, transaction_date, amount) values (?,?,?,?)"
 
-	result, err := transactionRepoDB.client.Exec(newTransactionSql, transaction.Id, transaction.AccountId, transaction.TransactionType, transaction.TransactionDate, transaction.Amount)
+	result, err := transactionRepoDB.client.Exec(newTransactionSql, transaction.AccountId, transaction.TransactionType, transaction.TransactionDate, transaction.Amount)
 	if err != nil {
 		logger.Error("Error while creating new transaction " + err.Error())
 		return nil, errs.NewUnexpectedError("Unexpected database error")
@@ -31,5 +32,7 @@ func (transactionRepoDB TransactionRepositoryDb) Save(transaction Transaction) (
 }
 
 func NewTransactionRepositoryDb(dbClient *sqlx.DB) TransactionRepositoryDb {
-	return TransactionRepositoryDb{dbClient}
+	return TransactionRepositoryDb{
+		dbClient,
+	}
 }

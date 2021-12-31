@@ -20,7 +20,7 @@ GET http://localhost:8000/customers/A-1000
 
 POST http://localhost:8000/customers
 
-###
+### Create New Account
 POST http://localhost:8000/customers/2000/accounts  HTTP/1.1
 content-type: application/json
 
@@ -46,4 +46,15 @@ content-type: application/json
 {
     "account_type": "saving",
     "amount": 1000.00
+}
+
+### Create a new Transaction
+
+POST http://localhost:8000/transactions  HTTP/1.1
+content-type: application/json
+
+{
+    "account_id": 95471,
+    "amount": 1000.00,
+    "transaction_type": "deposit"
 }

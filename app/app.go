@@ -45,6 +45,7 @@ func Start() {
 
 	customerRepositoryDB := domain.NewCustomerRepositoryDb(dbClient)
 	accountRepositoryDB := domain.NewAccountRepositoryDb(dbClient)
+	transactionRepositoryDB := domain.NewTransactionRepositoryDb(dbClient)
 
 	customerHandler := CustomerHandlers{
 		service: service.NewCustomerService(customerRepositoryDB),
@@ -54,10 +55,18 @@ func Start() {
 		service: service.NewAccountService(accountRepositoryDB),
 	}
 
+	transactionHandler := TransactionHandler{
+		service: service.NewTransactionService(transactionRepositoryDB),
+	}
+
+	// Customer routes
 	router.HandleFunc("/customers", customerHandler.getCustomers).Methods(http.MethodGet)
 	router.HandleFunc("/customers", createCustomer).Methods(http.MethodPost)
 	router.HandleFunc("/customers/{customer_id}", customerHandler.getCustomer).Methods(http.MethodGet)
 	router.HandleFunc("/customers/{customer_id}/accounts", accountHandler.CreateAccount).Methods(http.MethodPost)
+
+	// Transaction routes"
+	router.HandleFunc("/transactions", transactionHandler.CreateTransaction).Methods(http.MethodPost)
 
 	address := os.Getenv("SERVER_ADDRESS")
 	port := os.Getenv("SERVER_PORT")
