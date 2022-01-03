@@ -50,11 +50,21 @@ content-type: application/json
 
 ### Create a new Transaction
 
-POST http://localhost:8000/transactions  HTTP/1.1
+POST http://localhost:8000/customers/2000/accounts/not_found  HTTP/1.1
 content-type: application/json
 
 {
-    "account_id": 95471,
     "amount": 1000.00,
     "transaction_type": "deposit"
+}
+
+
+###
+
+POST http://localhost:8000/customers/2000/accounts/95471  HTTP/1.1
+content-type: application/json
+
+{
+    "amount": 100.00,
+    "transaction_type": "withdrawal"
 }
