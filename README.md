@@ -8,8 +8,22 @@ Learn go with real example
 
 - Hexagonal Architect
 
+### APIs:
 
-Database Schema
+> Get All Customers      
+GET  /customers
+
+
+> Get Customer by ID    
+GET  /customers/{customer_id}
+
+> Create new account    
+POST /customers/{customer_id}/accounts
+
+> Make a transaction     
+POST /customers/{customer_id}/accounts/{account_id}
+
+### Database Schema
 
 ![EPR Just Bank](./just-bank-db.png)
 ### How to run local
