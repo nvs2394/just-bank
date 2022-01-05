@@ -1,8 +1,6 @@
 package dto
 
 import (
-	"strings"
-
 	"github.com/nvs2394/just-bank/errs"
 )
 
@@ -22,7 +20,7 @@ func (request NewTransactionRequest) Validate() *errs.AppError {
 		return errs.NewBadRequestError("Amount cannot be less than zero")
 	}
 
-	if strings.ToLower(request.TransactionType) != WITHDRAWAL && strings.ToLower(request.TransactionType) != DEPOSIT {
+	if !request.IsTransactionTypeWithdrawal() && !request.IsTransactionTypeDeposit() {
 		return errs.NewBadRequestError("Transaction type should be withdrawal or deposit")
 	}
 
@@ -31,4 +29,8 @@ func (request NewTransactionRequest) Validate() *errs.AppError {
 
 func (request NewTransactionRequest) IsTransactionTypeWithdrawal() bool {
 	return request.TransactionType == WITHDRAWAL
+}
+
+func (request NewTransactionRequest) IsTransactionTypeDeposit() bool {
+	return request.TransactionType == DEPOSIT
 }
