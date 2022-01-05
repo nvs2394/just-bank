@@ -23,7 +23,9 @@ func getDBClient() *sqlx.DB {
 	dbUser := os.Getenv("DB_USER")
 	dbPassword := os.Getenv("DB_PASSWORD")
 	dbName := os.Getenv("DB_NAME")
-	connectionString := dbUser + ":" + dbPassword + "@/" + dbName
+	dbHost := os.Getenv("DB_HOST")
+	dbPort := os.Getenv("DB_PORT")
+	connectionString := dbUser + ":" + dbPassword + "@tcp(" + dbHost + ":" + dbPort + ")/" + dbName
 
 	client, err := sqlx.Open("mysql", connectionString)
 
