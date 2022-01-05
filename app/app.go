@@ -64,7 +64,7 @@ func Start() {
 	router.HandleFunc("/customers/{customer_id}/accounts/{account_id}", accountHandler.MakeTransaction).Methods(http.MethodPost)
 
 	address := os.Getenv("SERVER_ADDRESS")
-	port := os.Getenv("SERVER_PORT")
+	port := os.Getenv("PORT")
 
 	log.Fatal(http.ListenAndServe(fmt.Sprintf("%s:%s", address, port), router))
 
