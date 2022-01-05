@@ -66,6 +66,8 @@ func Start() {
 	address := os.Getenv("SERVER_ADDRESS")
 	port := os.Getenv("PORT")
 
+	fmt.Println("Server running on " + address + ":" + port)
+
 	log.Fatal(http.ListenAndServe(fmt.Sprintf("%s:%s", address, port), router))
 
 }
