@@ -75,7 +75,10 @@ func (accountRepoDB AccountRepositoryDb) SaveTransaction(transaction Transaction
 	}
 
 	if err != nil {
-		trx.Rollback()
+		rollbackError := trx.Rollback()
+		if rollbackError != nil {
+			return nil, errs.NewUnexpectedError("Unexpected database error")
+		}
 		logger.Error("Error while saving transaction" + err.Error())
 		return nil, errs.NewUnexpectedError("Unexpected database error")
 	}
@@ -83,7 +86,10 @@ func (accountRepoDB AccountRepositoryDb) SaveTransaction(transaction Transaction
 	err = trx.Commit()
 
 	if err != nil {
-		trx.Rollback()
+		rollbackError := trx.Rollback()
+		if rollbackError != nil {
+			return nil, errs.NewUnexpectedError("Unexpected database error")
+		}
 		logger.Error("Error while commiting transaction for bank account" + err.Error())
 		return nil, errs.NewUnexpectedError("Unexpected database error")
 	}
