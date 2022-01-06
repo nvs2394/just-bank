@@ -14,7 +14,7 @@ import (
 )
 
 func sanityCheck() {
-	if os.Getenv("SERVER_ADDRESS") == "" || os.Getenv("SERVER_PORT") == "" {
+	if os.Getenv("SERVER_ADDRESS") == "" || os.Getenv("PORT") == "" {
 		log.Fatal("Environment variable not defined")
 	}
 }
