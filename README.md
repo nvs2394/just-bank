@@ -8,6 +8,13 @@ Learn go with real example
 
 - Hexagonal Architect
 
+### Related repo
+
+- Authentication service: https://github.com/nvs2394/just-bank-auth
+
+- Common lib: https://github.com/nvs2394/just-bank-lib
+
+
 ### APIs:
 
 > Get All Customers      

@@ -1,8 +1,8 @@
 package domain
 
 import (
+	"github.com/nvs2394/just-bank-lib/errs"
 	"github.com/nvs2394/just-bank/dto"
-	"github.com/nvs2394/just-bank/errs"
 )
 
 type Account struct {

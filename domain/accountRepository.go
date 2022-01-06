@@ -6,8 +6,8 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jmoiron/sqlx"
-	"github.com/nvs2394/just-bank/errs"
-	"github.com/nvs2394/just-bank/logger"
+	"github.com/nvs2394/just-bank-lib/errs"
+	"github.com/nvs2394/just-bank-lib/logger"
 )
 
 type AccountRepositoryDb struct {

@@ -1,7 +1,7 @@
 package dto
 
 import (
-	"github.com/nvs2394/just-bank/errs"
+	"github.com/nvs2394/just-bank-lib/errs"
 )
 
 const WITHDRAWAL = "withdrawal"
